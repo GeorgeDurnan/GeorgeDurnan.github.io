@@ -1,0 +1,38 @@
+html {
+    font-size: 16px;
+    background-color: #FDFBD4;
+}
+
+#heading {
+    display: flex;
+}
+
+nav {
+    display: flex;
+    margin-left: auto;
+    gap: 2rem;
+
+}
+
+#about {
+    display: flex;
+    gap: 2rem;
+}
+
+#about img {
+    width: 15rem;
+
+}
+
+body {
+    margin: 0;
+    max-width: 900px;
+    padding: 0rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+}
+li{
+    list-style-type: circle;
+}

@@ -9,14 +9,16 @@
 </head>
 
 <body>
+    <div id="navbar"></div>
+
+    <script>
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("navbar").innerHTML = data);
+    </script>
     <header>
         <h1>Style guide for nooshe project</h1>
     </header>
-    <nav>
-        <a href="index.html">home</a>
-        <a href="cheatsheet.html">cheatsheet</a>
-        <a href="stylesheet.html">project two</a>
-    </nav>
     <!-- Colours text Section-->
     <section id="colour_text">
         <h1>Colours - text</h1>

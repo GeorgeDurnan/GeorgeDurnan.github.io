@@ -3,16 +3,18 @@
 
 <head>
   <title>Cheat Sheet for CSS Selectors</title>
-  <link rel="stylesheet" href="Resources/CSS/cheatsheet.css"/>
+  <link rel="stylesheet" href="Resources/CSS/cheatsheet.css" />
 </head>
 
 <body>
+  <div id="navbar"></div>
+
+  <script>
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => document.getElementById("navbar").innerHTML = data);
+  </script>
   <h1>CSS selectors cheat sheet</h1>
-  <nav>
-    <a href="index.html">home</a>
-    <a href="cheatsheet.html">cheatsheet</a>
-    <a href="stylesheet.html">project two</a>
-  </nav>
   <table>
     <thead>
       <tr>

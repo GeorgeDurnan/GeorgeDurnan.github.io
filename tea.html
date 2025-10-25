@@ -9,6 +9,13 @@
 </head>
 
 <body>
+    <div id="navbar"></div>
+
+    <script>
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("navbar").innerHTML = data);
+    </script>
     <nav>
         <img src="Resources/media/images/img-tea-cozy-logo.webp" alt="" id="logo">
         <section>
