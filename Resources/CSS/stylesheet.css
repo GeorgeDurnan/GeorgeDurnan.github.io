@@ -1,0 +1,122 @@
+/* import fonts */
+@font-face {
+  font-family: 'nunito_sans';
+  src: url('../media/fonts/Nunito_Sans/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'fred';
+  src: url('../media/fonts/Fredericka_the_Great/FrederickatheGreat-Regular.ttf') format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'cormorant';
+  src: url('../media/fonts/Cormorant_Garamond/CormorantGaramond-VariableFont_wght.ttf') format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'nunito';
+  src: url("../media/fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+/* Page look */
+section{
+    border: black 2px solid;
+    margin: 10px auto;
+    text-align: center;
+    max-width: 70%;
+
+
+}
+article{
+    display: inline-block;
+    padding: 0px 20px;
+    border: black 2px ;
+    border-style: dashed;
+    
+/* Colour section*/
+}
+#colour_text article{
+    color: white;
+}
+#black{
+    background-color: #000000 ;
+}
+#grey{
+    background-color: #5B4D43;
+
+}
+#rouge{
+    background-color: #8B0000;
+}
+#beige{
+    background-color: #FFF8F1;
+}
+#dark_tan{
+    background-color: #E0BE9ACC;
+}
+#light_tan{
+    background-color: #FFEBCD ;
+}
+#tan{
+    background-color: #5B4D4326;
+}
+#cream{
+    background-color: #FFF8F1;
+}
+/* Font section*/
+#nunito_sans{
+    font-family: "nunito_sans";
+}
+#fred{
+    font-family: "fred";
+}
+#cormorant{
+    font-family: "cormorant";
+}
+#nunito{
+    font-family: "nunito";
+}
+/* Text styles*/
+#title{
+    font-family: "cormorant";
+    font-size: 32px;
+    color: #000000;
+}
+#i_header{
+    font-family:"nunito_sans";
+    font-size:  32px;
+    color: #000000;
+}
+#f_header{
+    font-family:"fred";
+    font-size:  28px;
+    color: #000000;
+    font-weight: bold;
+}
+#p_text{
+    font-family:"nunito_sans";
+    font-size:  20px;
+    color: #000000;
+}
+#boi_header{
+    font-family:"nunito";
+    font-size:  14px;
+    color: #000000;
+}
+#su_header{
+    font-family:"nunito_sans";
+    font-size:  25px;
+    color:  #8B0000;
+}
+#su_desc{
+    font-family:"nunito_sans";
+    font-size:  15px;
+    color: #5B4D43;
+}
+
+

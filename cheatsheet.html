@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Cheat Sheet for CSS Selectors</title>
+  <link rel="stylesheet" href="Resources/CSS/cheatsheet.css"/>
+</head>
+
+<body>
+  <h1>CSS selectors cheat sheet</h1>
+  <nav>
+    <a href="index.html">home</a>
+    <a href="cheatsheet.html">cheatsheet</a>
+    <a href="stylesheet.html">project two</a>
+  </nav>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Selector Type</th>
+        <th scope="col">Syntax</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>Universal Selector</td>
+      <td>*</td>
+      <td>Selects all elements</td>
+    </tr>
+    <tr>
+      <td>Element Selector</td>
+      <td>p</td>
+      <td>Selects all <span>&lt;p&gt;</span> elements</td>
+    </tr>
+    <tr>
+      <td>Class Selector</td>
+      <td>.classname</td>
+      <td>Selects all elements with class</td>
+    </tr>
+    <tr>
+      <td>ID Selector</td>
+      <td>#idname</td>
+      <td>Selects element with given id</td>
+    </tr>
+    <tr>
+      <td>Group Selector</td>
+      <td>h1, h2, p</td>
+      <td>Selects multiple element types</td>
+    </tr>
+    <tr>
+      <td>Descendant Selector</td>
+      <td>div p</td>
+      <td>Selects <code>&lt;p&gt;</code> inside <code>&lt;div&gt;</code></td>
+    </tr>
+    <tr>
+      <td>Child Selector</td>
+      <td>div p</td>
+      <td>Selects direct children only</td>
+    </tr>
+    <tr>
+      <td>Adjacent Sibling Selector d</td>
+      <td>h1 + p</td>
+      <td>
+        Selects <code>&lt;p&gt;</code> immediately after
+        <code>&lt;h1&gt;</code>
+      </td>
+    </tr>
+    <tr>
+      <td>General Sibling Selector</td>
+      <td>h1 ~ p</td>
+      <td>
+        Selects all <code>&lt;p&gt;</code> after <code>&lt;h1&gt;</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Attribute Selector</td>
+      <td>a[href]</td>
+      <td>Selects <code>&lt;a&gt;</code> with href attribute</td>
+    </tr>
+    <tr>
+      <td>Pseudo-class</td>
+      <td>a:hover</td>
+      <td>Selects when hovering</td>
+    </tr>
+    <tr>
+      <td>Pseudo-element</td>
+      <td>p::first-line</td>
+      <td>Selects first line of <code>&lt;p&gt;</code></td>
+    </tr>
+  </table>
+</body>
+
+</html>

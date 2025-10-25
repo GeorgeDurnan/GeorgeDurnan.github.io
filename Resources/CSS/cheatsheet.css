@@ -1,0 +1,38 @@
+/*set background colour*/
+body {
+  background-color: aquamarine;
+}
+
+table {
+  margin: auto;
+  text-align: center;
+}
+
+
+/*Create table border */
+table,
+tr,
+td {
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+
+}
+/* Set table header style*/
+th {
+  background-color: green;
+  color: white;
+}
+/* set size of table */
+
+tr,
+td {
+  padding: 10px;
+  font-size: 20px;
+}
+/* make all code appear differently*/
+td:nth-child(2),
+code {
+  font-family: monospace;
+  background-color: whitesmoke;
+}

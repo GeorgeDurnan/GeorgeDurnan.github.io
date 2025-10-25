@@ -1,0 +1,120 @@
+* {
+    background-color: black;
+    color: white;
+    font-size: 22px;
+
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav section {
+    display: flex;
+    gap: 10px;
+}
+
+nav section h4 {
+    text-decoration: underline;
+}
+
+#open {
+    width: 100%;
+    height: 700px;
+
+
+}
+
+#container {
+    background-image: url("/Codecademy/project_website/Resources/media/images/img-mission-background.webp");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 700px;
+    width: 1200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+}
+
+.banner {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+
+}
+
+#teaImages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#teaImages img {
+
+    height: 200px;
+    width: 300px;
+
+}
+
+#pTitle {
+    text-align: center;
+}
+
+#locationArticle {
+    position: relative;
+    /* needed for absolute positioning of h2 */
+    background-image: url("/Codecademy/project_website/Resources/media/images/img-locations-background.webp");
+    background-size: cover;
+    background-position: center;
+    width: 1200px;
+    height: 500px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#locationArticle h2 {
+    position: absolute;
+    /* overlay at the top */
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 2.5rem;
+    margin: 0;
+    background: none;
+}
+
+#allLocations {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+#allLocations div {
+    background-color: black;
+    color: white;
+    width: 300px;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0, 20px
+}
+
+
+
+#logo {
+    height: 50px;
+}
+
+#contact {
+    text-align: center;
+
+}
