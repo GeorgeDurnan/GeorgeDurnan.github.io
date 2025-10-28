@@ -5,6 +5,7 @@
     <title>
         Project Website
     </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Resources/CSS/index.css">
 </head>
 
@@ -14,11 +15,18 @@
             <h1>George Durnan Portfolio</h1>
         </header>
         <nav>
-            <a href=""></a><h3>About Me</h3>
-            <h3>Projects</h3>
-            <h3>Skills</h3>
-            <a href="/contact.html"><h3>Contact Me</h3></a>
-            
+            <a href="/">
+                <h3>About Me</h3>
+            </a>
+            <a href="/">
+                <h3>Projects</h3>
+            </a>
+            <a href="/">
+                <h3>Skills</h3>
+            </a>
+            <a href="/contact.html">
+                <h3>Contact Me</h3>
+            </a>
         </nav>
     </div>
     <main>
@@ -37,12 +45,14 @@
             <img src="/Resources/media/images/Screenshot 2025-10-25 105403.png" alt="Picture of myself">
         </div>
         <h2>Projects</h2>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="cheatsheet.html">Cheatsheet</a></li>
-            <li><a href="stylesheet.html">Project Two</a></li>
-            <li><a href="nooshe.html">Nooshe Website</a></li>
-        </ul>
+        <div id="projects">
+            <ul id="projectList">
+                <li><a href="cheatsheet.html" class="project">Cheatsheet</a></li>
+                <li><a href="stylesheet.html" class="project">Project Two</a></li>
+                <li><a href="nooshe.html" class="project">Nooshe Website</a></li>
+            </ul>
+            <img src="" alt="previewImage" id="frame">
+        </div>
         <h2>Skills</h2>
         <ul>
             <li>JavaScript</li>
@@ -55,6 +65,7 @@
         </ul>
 
     </main>
+    <script src="/Resources/Scripts/index.js"></script>
 </body>
 
 </html>

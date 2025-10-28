@@ -26,13 +26,94 @@ nav {
 
 body {
     margin: 0;
-    max-width: 900px;
+    max-width: 70%;
     padding: 0rem;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
 
 }
-li{
+
+li {
     list-style-type: circle;
+}
+
+#frame {
+    display: none;
+    height: 15rem;
+    width: 25rem;
+}
+
+#projects {
+    display: flex;
+    gap: 8rem;
+}
+
+#contactPage {
+    font-size: 1.5rem;
+}
+
+/* Small devices (phones, under 600px) */
+@media (max-width: 600px) {
+    #about img {
+        display: none;
+    }
+
+    header {
+        display: none;
+    }
+
+    nav {
+        flex-direction: column;
+        margin-right: auto;
+        align-items: center;
+        gap: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: 95%;
+        margin: 0 auto;
+
+    }
+
+    #about {
+        width: 100%;
+    }
+}
+
+
+/* Medium devices (tablets, 600px–900px) */
+@media (min-width: 600px) and (max-width: 900px) {
+    #contactPage {
+        font-size: 2rem;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: 95%;
+        margin: 0 auto;
+
+    }
+}
+
+
+
+
+/* Large devices (desktops, 900px–1200px) */
+@media (min-width: 900px) and (max-width: 1200px) {
+    #contactPage {
+        font-size: 2rem;
+    }
+}
+
+/* Extra large devices (wide screens, TVs, etc.) */
+@media (min-width: 1200px) {
+    #contactPage {
+        font-size: 2rem;
+    }
 }
