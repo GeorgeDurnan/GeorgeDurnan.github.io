@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        random arsenal game
+    </title>
+</head>
+
+<body>
+    <div id="navbar"></div>
+
+    <script>
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => document.getElementById("navbar").innerHTML = data);
+    </script>
+    <h1 id="score"></h1>
+    <h2 id="winner"></h2>
+    <p id="info"></p>
+    <button id="button">Press to simulate game</button>
+    <script src="/Resources/Scripts/randomMessage.js"></script>
+</body>
+
+</html>
