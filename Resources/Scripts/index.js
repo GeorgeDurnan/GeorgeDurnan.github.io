@@ -1,6 +1,6 @@
 projects = document.querySelectorAll(".project")
 
-const projectImages = ["/Resources/media/projectScreenshots/cheatSheet.png", "/Resources/media/projectScreenshots/styleGuide.png", "/Resources/media/projectScreenshots/nooshe.png", "/Resources/media/projectScreenshots/random.png"]
+const projectImages = ["/Resources/media/projectScreenshots/cheatSheet.png", "/Resources/media/projectScreenshots/styleGuide.png", "/Resources/media/projectScreenshots/nooshe.png", "/Resources/media/projectScreenshots/random.png","/Resources/media/projectScreenshots/redditClient.png"]
 
 projects.forEach((project, index) => {
     project.addEventListener("mouseenter", () => {
