@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gazetteer</title>
+    <link rel="stylesheet" href="./libs/dependencies/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="./libs/css/index.css">
+    <link rel="stylesheet" href="./libs/dependencies/leaflet-easybutton/src/easy-button.css">
+    <link rel="stylesheet" href="./libs/dependencies/leaflet.markercluster/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="./libs/dependencies/leaflet.markercluster/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="./libs/dependencies/bootstrap/css/bootstrap.css">
+
+
+
+</head>
+
+<body>
+    <!-- Buttons -->
+    <div class="modal fade" data-bs-backdrop="false" id="musicModal" tabindex="-1" aria-labelledby="musicModalLabel"
+        aria-hidden="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-info bg-gradient text-white">
+                    <h4 class="modal-title" id="musicModalLabel">
+                        Last FM's Top ten in <span id="music-title"></span>
+                    </h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body short-modal">
+                    <ol id="music-list"></ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info btn-sm" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" data-bs-backdrop="false" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel"
+        aria-hidden="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-info bg-gradient text-white">
+                    <h4 class="modal-title" id="infoModalLabel">
+                        Interesting information about <span id="info-title"></span>
+                    </h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body short-modal">
+                    <p id="info-message">No data found</p>
+                    <table id="info-table">
+                        <tr>
+                            <td>
+                                <h6>Capital</h6>
+                            </td>
+                            <td>
+                                <h6 id="info-capital"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Driving side</h6>
+                            </td>
+                            <td>
+                                <h6 id="info-drive"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Continent</h6>
+                            </td>
+                            <td>
+                                <h6 id="info-continent"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Population</h6>
+                            </td>
+                            <td>
+                                <h6 id="info-population"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Currency</h6>
+                            </td>
+                            <td>
+                                <h6 id="info-currency"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Currency Symbol</h6>
+                            </td>
+                            <td>
+                                <h6 id="info-symbol"></h6>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td id="info-list" colspan="2">
+                                <h6 id="info-list-title"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <ol id="info-list-body"></ol>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info btn-sm" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Currency modal-->
+    <div class="modal fade" data-bs-backdrop="false" id="currencyModal" tabindex="-1"
+        aria-labelledby="currencyModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-info bg-gradient text-white">
+                    <h4 class="modal-title" id="currencyModalLabel">
+                        Currency of <span id="currency-title"></span>
+                    </h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body short-modal">
+                    <p id="currency-message">No data found</p>
+                    <table id="currency-table">
+                        <tr>
+                            <td>
+                                <h6>Name</h6>
+                            </td>
+                            <td>
+                                <h6 id="currency-name"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Symbol</h6>
+                            </td>
+                            <td>
+                                <h6 id="currency-symbol"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Official Code</h6>
+                            </td>
+                            <td>
+                                <h6 id="currency-code"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Exchange Rate</h6>
+                            </td>
+                            <td>
+                                <h6 id="currency-rate"></h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-currency btn-sm" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Weather -->
+    <div class="modal fade" data-bs-backdrop="false" id="weatherModal" tabindex="-1" aria-labelledby="weatherModalLabel"
+        aria-hidden="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-info bg-gradient text-white">
+                    <h4 class="modal-title" id="weatherModalLabel">
+                        Weather in <span id="weather-title"></span>
+                    </h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body short-modal">
+                    <p id="weather-message">No data found</p>
+                    <table id="weather-table">
+                        <tr>
+                            <td>
+                                <h6>Weather</h6>
+                            </td>
+                            <td>
+                                <h6 id="weather-name"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Description</h6>
+                            </td>
+                            <td>
+                                <h6 id="weather-desc"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Temperature</h6>
+                            </td>
+                            <td>
+                                <h6 id="weather-temp"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Wind speed</h6>
+                            </td>
+                            <td>
+                                <h6 id="weather-speed"></h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-weather btn-sm" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- location -->
+    <div class="modal fade" data-bs-backdrop="false" id="locationModal" tabindex="-1"
+        aria-labelledby="locationModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-info bg-gradient text-white">
+                    <h4 class="modal-title" id="locationModalLabel">
+                        Pin location <span id="location-title"></span>
+                    </h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body short-modal">
+                    <p id="location-message">No data found</p>
+                    <table id="location-table">
+                        <tr>
+                            <td>
+                                <h6>Address</h6>
+                            </td>
+                            <td>
+                                <h6 id="location-address"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6 id="location-county-title"></h6>
+                            </td>
+                            <td>
+                                <h6 id="location-county"></h6>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <h6>State</h6>
+                            </td>
+                            <td>
+                                <h6 id="location-state"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Location Type</h6>
+                            </td>
+                            <td>
+                                <h6 id="location-type"></h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-location btn-sm" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" data-bs-backdrop="false" id="wikiModal" tabindex="-1" aria-labelledby="wikiModalLabel"
+        aria-hidden="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-info bg-gradient text-white">
+                    <h4 class="modal-title" id="wikiModalLabel">
+                        Wikipedia entries for <span id="wiki-title"></span>
+                    </h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body short-modal">
+                    <ol id="wiki-list"></ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info btn-sm" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="flag"></div>
+    <form class="ms-auto align-items-end">
+        <select name="countries" id="countries" class="form-select" aria-label="Choose country"></select>
+    </form>
+    <!--This is the div that the map is projected onto-->
+    <div id="map"></div>
+
+
+    <!---------- Scripts ------------>
+    <!--- Data imports -->
+    <script src="./libs/data/countryBorders.geo.js"></script>
+    <script src="./libs/data/selectData.js"></script>
+    <script src="./libs/data/convert.js"></script>
+
+    <script src="./libs/dependencies/leaflet/leaflet.js"></script>
+    <script src="libs/js/jquery.js"></script>
+    <script src="./libs/dependencies/leaflet-easybutton/src/easy-button.js"></script>
+    <script src="./libs/dependencies/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="./libs/dependencies/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <script src="libs/js/script.js"></script>
+</body>
+
+</html>

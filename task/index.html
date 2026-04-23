@@ -1,0 +1,100 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>AJAX/PHP/CURL/JSON example</title>
+    <meta name="description" content="Task for IT Career Switch">
+    <meta name="author" content="George Durnan">
+
+</head>
+
+<body>
+    <form id="codeInput"></form>
+    <form id="addInput"></form>
+    <div id="divResults">
+        <table>
+            <tr>
+                <th>
+                    Api Name
+                </th>
+                <th>
+                    Api description
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    Neighbours
+                </td>
+                <td>
+                    <select id="selCountry">
+                        <option value="3017382">France</option>
+                        <option value="2921044">Germany</option>
+                        <option value="3041565">Andorra</option>
+                        <option value="2802361">Belgium</option>
+                        <option value="130758">Iran</option>
+                        <option value="2635167">United Kingdom</option>
+                        <option value="3469034">Brazil</option>
+                        <option value="1814991">China</option>
+                    </select>
+                </td>
+                <td>
+                    <button id="btnNeighbours">Submit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Nearby Place
+                </td>
+                <td>
+
+                    <input form="codeInput" id="lat" type="number" min="-90.0" max="90.0" step="any"
+                        placeholder="latitude" required>
+                    <br>
+                    <input form="codeInput" id="long" type="number" min="-90.0" max="90.0" step="any"
+                        placeholder="longitude" required>
+
+                </td>
+                <td>
+                    <button id="btnNearby" form="codeInput" type="submit">Submit</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Nearby Address
+                </td>
+
+                <td>
+
+                    <input form="addInput" id="latAdd" type="number" min="-90.0" max="90.0" step="any"
+                        placeholder="latitude" required>
+                    <br>
+                    <input form="addInput" id="longAdd" type="number" min="-90.0" max="90.0" step="any"
+                        placeholder="longitude" required>
+
+                </td>
+                <td>
+                    <button id="btnAdd" form="addInput" type="submit">Submit</button>
+
+                </td>
+            </tr>
+
+        </table>
+        <table>
+           <tbody id="resultsBody"></tbody>
+        </table>
+
+    </div>
+
+    <script type="application/javascript" src="libs/js/jquery.js"></script>
+    <script type="application/javascript" src="libs/js/script.js"></script>
+
+</body>
+
+</html>

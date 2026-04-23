@@ -1,0 +1,94 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#map {
+  height: 100%;
+  width: 100%
+}
+
+table {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(0, 128, 0, 0.5);
+  font-size: 1rem;
+  border: solid;
+}
+
+table td {
+  border: solid;
+}
+
+td {
+  padding: 0.25rem;
+}
+
+#info-list-title {
+  text-align: center
+}
+
+#info-list-body {
+  columns: 2;
+}
+
+#flag {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  /*doesnt appear with important*/
+  width: 200px !important;
+  z-index: 999;
+  width: 10px;
+  max-height: 5.75rem;
+}
+
+
+#flag img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.form-select {
+  position: absolute;
+  /*Goes full width without important*/
+  width: 200px !important;
+  z-index: 999;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+/* Make all buttons same size*/
+.leaflet-bar .easy-button-button,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+}
+
+/* For touch screens e.g. phones */
+.leaflet-touch .leaflet-bar .easy-button-button,
+.leaflet-touch .leaflet-control-zoom-in,
+.leaflet-touch .leaflet-control-zoom-out {
+  width: 44px !important;
+  height: 44px !important;
+  line-height: 44px !important;
+  
+}
+
+/*Mobile phone adjustment*/
+@media screen and (max-width: 580px) {
+  #flag {
+    top: 0.7rem;
+    right: 0.7rem;
+    /*doesnt appear with important*/
+    width: 75px !important;
+
+ }
+
+}
