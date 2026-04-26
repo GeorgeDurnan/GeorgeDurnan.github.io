@@ -229,16 +229,21 @@ function createBorder(code) {
 //-------
 const initializeChoices = () => {
     for (let i = 0; i < selectData.length; i++) {
-        //Ensures the initial selected country is the current country
+        //Ensures the selected country in the form is the current country
         if (selectData[i].name === country) {
             chosenIndex = i
         }
-        $("#countries").append(
-            $("<option>", {
-                value: selectData[i].value,
-                text: selectData[i].name,
-            })
-        )
+        if (firstLoad) {
+            $("#countries").append(
+                $("<option>", {
+                    value: selectData[i].value,
+                    text: selectData[i].name,
+                })
+            )
+
+        }
+
+
     }
     document.getElementById("countries").selectedIndex = chosenIndex
 }
@@ -526,6 +531,7 @@ function initializeListeners() {
                             createBorder(code)
                             initaliseButtons()
                             initializeChoices()
+
                         } else {
                             console.log("Unknown country clicked")
                         }
@@ -729,8 +735,12 @@ function addMarkers() {
 }
 
 function addMarkersToMap(data, cluster, icon) {
-    data = data["data"]
+    //If data doesn't work the layer is still cleared
     cluster.clearLayers()
+    if(data == null){
+        return
+    }
+    data = data["data"]
 
     for (let i = 0; i < data.length; i++) {
 
