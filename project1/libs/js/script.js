@@ -484,10 +484,11 @@ function initializeListeners() {
         if (!isLoading) {
             country = $(this).find("option:selected").text()
             chosenIndex = this.selectedIndex
-            createBorder($(this).val())
-            const center = bounds.getCenter()
-            lat = center.lat
-            long = center.lng
+            code = $(this).val()
+            createBorder(code)
+            //Have to use countryCenter due to issues with c shaped countries causing issues 
+            lat = countryCenter[code]["lat"]
+            long = countryCenter[code]["lng"]
             initaliseButtons()
         } else {
             document.getElementById("countries").selectedIndex = chosenIndex
@@ -655,6 +656,7 @@ async function getData() {
                     limit: 50
                 }
             }),
+            //Museum - Geonames
             $.ajax({
                 url: "libs/php/getFeature.php",
                 type: "GET",
@@ -666,6 +668,7 @@ async function getData() {
                     limit: 50
                 }
             }),
+            //Capital - Geonames
             $.ajax({
                 url: "libs/php/getFeature.php",
                 type: "GET",
@@ -762,7 +765,7 @@ function addMarkersToMap(data, cluster, icon) {
             //Above Icon
             popupAnchor: [0, -24]
         })
-
+        //Mouse over data
         const popUpContent =
             "Name:  " + name + "<br/>" + "Country Code:  " + feature + "<br/>" + "Latitude:  " +
             markerLat + "<br/>" + "Longitude:  " + markerLong
