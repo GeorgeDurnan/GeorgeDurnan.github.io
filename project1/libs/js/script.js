@@ -266,8 +266,11 @@ async function initaliseButtons() {
             $("#music-list-body").empty()
             //If request timed out or if request failed
             if (musicData == null || musicData["status"]["code"] !== "200" || musicData["tracks"]["track"].length == 0) {
-                $("#music-list").text("No data found")
+                $("#music-list").hide()
+                $("#music-message").show()
             } else {
+                $("#music-list").show()
+                $("#music-message").hide()
                 const data = musicData["tracks"]["track"]
                 //If data is less than 10
                 for (let index = 0; index < 10 && index < data.length; index++) {
@@ -551,7 +554,13 @@ async function getData() {
     infoData = null
     musicData = null
     weatherData = null
+    wikiData = null
+    hospitalData = null
+    airportData = null
+    museumData = null
+    capitalData = null
     locationData = null
+
     try {
         //Done seperately as it contains the required information
         try {

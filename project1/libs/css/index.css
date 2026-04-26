@@ -104,16 +104,16 @@ td {
 .leaflet-touch .leaflet-bar .easy-button-button,
 .leaflet-touch .leaflet-control-zoom-in,
 .leaflet-touch .leaflet-control-zoom-out {
-  width: 8vh !important;
-  height: 8vh !important;
-  line-height: 8vh !important;
+  width: 6vh !important;
+  height: 6vh !important;
+  line-height: 6vh !important;
 
 }
 
 /*For mobile*/
 .leaflet-touch .leaflet-control-layers-toggle {
-  width: 8vh !important;
-  height: 8vh !important;
+  width: 6vh !important;
+  height: 6vh !important;
 }
 
 
