@@ -376,7 +376,7 @@ async function initaliseButtons() {
                     $('#weather-modal').css('background-image', `url("./libs/images/light-rain.gif")`);
 
                 } else {
-                    $('#weather-modal').css('background-image', `url("./libs/images/${data["weather"][0]["main"]}.gif")`);
+                    $('#weather-modal').css('background-image', `url("./libs/images/${(data["weather"][0]["main"]).toLowerCase()}.gif")`);
                 }
                 $("#weather-name").text(data["weather"][0]["main"])
                 $("#weather-desc").text(capitalizeFirstLetter(data["weather"][0]["description"]))

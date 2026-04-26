@@ -59,12 +59,14 @@ td {
   position: absolute;
   width: 50vw !important;
   z-index: 999;
-  top: 0.75vh;
+  top: 0.75rem;
   left: 50%;
   transform: translate(-50%);
   text-align: center;
-  height: 7.5vh;
-  font-size: 2rem !important;
+  justify-content: center;
+  height: auto !important;
+  font-size: 1.5rem !important;
+  padding: 0.5rem !important;
 
 
 }
