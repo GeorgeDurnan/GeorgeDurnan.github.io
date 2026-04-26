@@ -32,7 +32,7 @@ if (!$decode) {
     $output['tracks'] = $decode['tracks'];
 }
 $output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-
+$output["url"] = $url;
 
 header('Content-Type: application/json; charset=UTF-8');
 

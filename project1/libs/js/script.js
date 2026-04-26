@@ -60,6 +60,47 @@ const museumIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512
 function capitalizeFirstLetter(val) {
     return String(val).charAt(0).toUpperCase() + String(val).slice(1)
 }
+//-----
+//Helper functions
+//-------
+function initialize() {
+    initaliseButtons()
+    initializeChoices()
+    initializeListeners()
+}
+function clear() {
+    $("#flag").html()
+    try {
+        if (!firstLoad) {
+            musicButton.remove()
+            infoButton.remove()
+            currencyButton.remove()
+            weatherButton.remove()
+            locationButton.remove()
+            wikiButton.remove()
+
+        }
+    } catch (error) {
+        console.log("Couldn't find one of the buttons")
+        console.log(error)
+    }
+
+}
+//Rest countries goes down often so I need to inform the user
+function errorOut(data) {
+    let message = ""
+    for (const datum of data) {
+        if (datum[1]["status"] === "rejected") {
+            message += `- ${datum[0]} API is not responding and timed out\n`
+        } else if (datum[1]["value"]["status"]["code"] === 500) {
+            message += `- ${datum[0]} API is not responding \n`
+        }
+    }
+    if (message !== "") {
+        alert("One or more of the API's is not functioning as normal, please try refreshing or trying again later - the API's not working are: \n" + message)
+    }
+}
+
 //--------------------
 //Sets up the map
 //--------------------
@@ -91,7 +132,7 @@ const overlays = {
 
 }
 L.control.layers(maps, overlays, {
-    position: 'topleft' 
+    position: 'topleft'
 }).addTo(map)
 //-----------------
 //Retreives the location
@@ -104,6 +145,8 @@ function load() {
         alert("Geolocation is not supported by this browser.")
     }
 }
+
+//If location found
 
 async function success(position) {
     lat = position.coords.latitude
@@ -129,23 +172,11 @@ async function success(position) {
             }
         })
     ])
-    errorOut([["OpenCurrencyExchange", results[0]], ["OpenCage", results[1]]])
-    currencyData = results[0].status === "fulfilled" ? results[0]?.["value"] : null
-    locationData = results[1].status === "fulfilled" ? results[1]?.["value"] : null
+    errorOut([["OpenCurrencyExchange", results[0]], ["OpenCage", results[1]]]);
+    [currencyData, locationData] = results.map(result => result.status === "fulfilled" ? result?.["value"] : null)
 
-    let message = ""
-    let data = [currencyData, locationData]
-    for (let index = 0; index < data.length; index++) {
-
-        if (data[index]["status"]["code"] === 500) {
-            message += (data[index]["description"] + "\n")
-        }
-
-    }
-    if (message !== "") {
-        alert("One or more of the API's is not functioning as normal you may continue to use the app but it will not work properly the API's not working are: \n" + message)
-    }
     if (locationData.status.name == "ok") {
+
         const data = locationData["data"][0]
         const code = data["components"]["ISO_3166-1_alpha-2"]
         country = borderData[code]["properties"]["name"]
@@ -158,11 +189,10 @@ async function success(position) {
             firstLoad = false
         }
 
-    } else {
-        alert("Country not found")
     }
 
 }
+//If no location found
 function error() {
     alert("No country found")
 }
@@ -195,7 +225,7 @@ function createBorder(code) {
     })
 }
 //----
-//Add the data to the select input
+//Country select
 //-------
 const initializeChoices = () => {
     for (let i = 0; i < selectData.length; i++) {
@@ -212,8 +242,6 @@ const initializeChoices = () => {
     }
     document.getElementById("countries").selectedIndex = chosenIndex
 }
-//When new country selected
-
 
 //-------
 //Easy buttons
@@ -225,25 +253,31 @@ async function initaliseButtons() {
     }
     isLoading = true
     //Deletes previous buttons
-    //If it goes wrong it doesn't break the whole button creation
     clear()
     createPin()
     await getData()
     loadFlag()
     addMarkers()
+
     musicButton = L.easyButton(
-        //Icon of button
+        //Button icon
         musicIcon,
         function () {
-            $("#music-list").empty()
+            $("#music-list-body").empty()
             //If request timed out or if request failed
             if (musicData == null || musicData["status"]["code"] !== "200" || musicData["tracks"]["track"].length == 0) {
                 $("#music-list").text("No data found")
             } else {
                 const data = musicData["tracks"]["track"]
-                //If data is not less than 10
+                //If data is less than 10
                 for (let index = 0; index < 10 && index < data.length; index++) {
-                    $("#music-list").append($("<li>").text(`${data[index]["name"]} - ${data[index]["artist"]["name"]}`))
+                    const song = data[index]
+                    const row = $("<tr>")
+                    const diamondNo = $("<div class='music-no'>").html("<h6>" + (index + 1) + "</h6>")
+                    row.append($("<td>").append(diamondNo))
+                    row.append($("<td>").text(song["name"]))
+                    row.append($("<td>").text(song["artist"]["name"]))
+                    $("#music-list-body").append(row);
                 }
             }
             $("#music-title").text(country)
@@ -269,11 +303,10 @@ async function initaliseButtons() {
                 const data = infoData["data"]
                 const [{ symbol, name }] = Object.values(data["currencies"])
                 $("#info-capital").text(data["capital"])
-                $("#info-drive").text(data["car"]["side"])
+                $("#info-drive").text(capitalizeFirstLetter(data["car"]["side"]))
                 $("#info-continent").text(data["continents"][0])
-                $("#info-drive").text(data["car"]["side"])
                 $("#info-population").text(data["population"])
-                $("#info-currency").text(name)
+                $("#info-currency").text(capitalizeFirstLetter(name))
                 $("#info-symbol").text(symbol)
                 for (let index = 0; index < data["borders"].length; index++) {
                     if (index == 0) {
@@ -293,7 +326,7 @@ async function initaliseButtons() {
 
         },
         //Tool tip
-        "Interesting information"
+        "Country information"
     ).addTo(map)
     currencyButton = L.easyButton(
         //Icon of button
@@ -302,10 +335,10 @@ async function initaliseButtons() {
             $("#currency-list").empty()
             if (currency == null || currencyData == null || currencyData["status"]["code"] !== "200") {
                 $("#currency-table").hide()
-                $("currency-message").show()
+                $("#currency-message").show()
             } else {
                 $("#currency-table").show()
-                $("currency-message").hide()
+                $("#currency-message").hide()
                 const [{ symbol, name }] = Object.values(infoData["data"]["currencies"])
                 const data = currencyData["data"]
                 $("#currency-name").text(name)
@@ -328,23 +361,30 @@ async function initaliseButtons() {
             if (weatherData == null || weatherData["status"]["code"] !== "200") {
                 //Hides the table if request fails
                 $("#weather-table").hide()
-                $("#weather-message").text("No data found")
+                $("#weather-message").show()
                 $("#weather-title").text(country)
 
             } else {
                 const data = weatherData["data"]
                 //Deletes message and shows table if response succeeds
+                $("#weather-icon").html(`<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png">`)
+
                 $("#weather-table").show()
-                $("#weather-message").text("")
+                $("#weather-message").hide()
+                //Extra rain gif
+                if (data["weather"][0]["description"] == "light rain") {
+                    $('#weather-modal').css('background-image', `url("./libs/images/light-rain.gif")`);
+
+                } else {
+                    $('#weather-modal').css('background-image', `url("./libs/images/${data["weather"][0]["main"]}.gif")`);
+                }
                 $("#weather-name").text(data["weather"][0]["main"])
-                $("#weather-desc").text(data["weather"][0]["description"])
+                $("#weather-desc").text(capitalizeFirstLetter(data["weather"][0]["description"]))
                 //Temperature is in kelvin
-                $("#weather-temp").text((data["main"]["temp"] - 273.15).toFixed(0))
-                $("#weather-speed").text(`${data["wind"]["speed"]} mph`)
+                $("#weather-temp").text((data["main"]["temp"] - 273.15).toFixed(0) + "°C")
+                $("#weather-speed").text(`${data["wind"]["speed"]} mph wind`)
                 $("#weather-title").text(data["name"])
             }
-
-
             // Show the weather modal popup window
             new bootstrap.Modal(document.getElementById('weatherModal')).show()
         },
@@ -360,41 +400,39 @@ async function initaliseButtons() {
             if (locationData == null || locationData["status"]["code"] !== "200") {
                 //Hides the table if request fails
                 $("#location-table").hide()
-                $("#location-message").text("No data found")
+                $("#location-message").show()
                 $("#location-title").text(country)
 
             } else {
                 const data = locationData["data"][0]
                 //Deletes message and shows table if response succeeds
                 $("#location-table").show()
-                $("#location-message").text("")
+                $("#location-message").hide()
 
                 $("#location-address").text(data?.["formatted"] || "No data")
 
                 //Because the pin can go anywhere some countries don't have counties so other options are necessary
                 if (data["components"]?.["county"]) {
-                    $("#location-county").text(data["components"]["county"])
+                    $("#location-county").text(capitalizeFirstLetter(data["components"]["county"]))
                     $("#location-county-title").text("County")
                 } else if (data["components"]?.["municipality"]) {
-                    $("#location-county").text(data["components"]["municipality"])
+                    $("#location-county").text(capitalizeFirstLetter(data["components"]["municipality"]))
                     $("#location-county-title").text("Municipality")
                 } else if (data["components"]?.["state_district"]) {
-                    $("#location-county").text(data["components"]["state_district"])
+                    $("#location-county").text(capitalizeFirstLetter(data["components"]["state_district"]))
                     $("#location-county-title").text("State District")
                 } else {
-                    $("#location-county").text(data["components"]["_category"])
+                    $("#location-county").text(capitalizeFirstLetter(data["components"]["_category"]))
                     $("#location-county-title").text("Category")
                 }
                 $("#location-state").text(data["components"]?.["state"] || "No data")
-                $("#location-type").text(data["components"]?.["road_type"] || data["components"]?.["_type"] || "No data")
+                $("#location-type").text(capitalizeFirstLetter(data["components"]?.["road_type"] || data["components"]?.["_type"] || "No data"))
             }
-
-
             // Show the location modal popup window
             new bootstrap.Modal(document.getElementById('locationModal')).show()
         },
         //Tool tip
-        "location Country Information"
+        "Location Information"
     ).addTo(map)
     //Wiki button
     wikiButton = L.easyButton(
@@ -403,21 +441,19 @@ async function initaliseButtons() {
         function () {
             $("#wiki-list").empty()
             if (wikiData == null || wikiData["status"]["code"] !== "200" || wikiData["data"].length == 0) {
-                $("#wiki-list").text("No data found")
+                $("#wiki-list").hide()
+                $("#wiki-message").show()
             } else {
+                $("#wiki-list").show()
+                $("#wiki-message").hide()
                 const data = wikiData["data"]
                 let count = 0
-                //It always returns wikipedia not about the so its limited to 5 if they can be found
-                for (let index = 0; index < data.length && count < 5; index++) {
-                    if (data[index]["countryCode"] == flagCode) {
-                        $("#wiki-list").append($("<li>").html(`<h6 id="wiki-list-title">${data[index]["title"]}</h6><a href="${data[index]["wikipediaUrl"]}">${data[index]["summary"]}</a>`))
-                        count++
-                    }
+                //Incase wikipedia has less results
+                for (let index = 0; index < 5 && index < data.length; index++) {
+                    const image = data[index]?.["thumbnail"]?.["source"] ?? "./libs/images/Wikipedia-logo.png"
+                    const imageDesc = data[index]?.["thumbnail"]?.["pageimage"] ?? "Wikipedia logo"
+                    $("#wiki-list").append(`<div class="wiki-container"> <div class="wiki-img-container"><img class="wiki-image" src="${image}" alt="${imageDesc}"></img></div><a href="${data[index]["fullurl"]}" target="_blank">${data[index]["title"]}</a><h6 id="wiki-list-title">${data[index]["extract"]}</h6></div>`)
 
-                }
-                //If no articles with country code found
-                if (count == 0) {
-                    $("#wiki-list").text("No data found")
                 }
             }
             $("#wiki-title").text(country)
@@ -504,46 +540,6 @@ function initializeListeners() {
 
 }
 
-//-----
-//Helper functions
-//-------
-function initialize() {
-    initaliseButtons()
-    initializeChoices()
-    initializeListeners()
-}
-function clear() {
-    $("#flag").html()
-    try {
-        if (!firstLoad) {
-            musicButton.remove()
-            infoButton.remove()
-            currencyButton.remove()
-            weatherButton.remove()
-            locationButton.remove()
-            wikiButton.remove()
-
-        }
-    } catch (error) {
-        console.log("Couldn't find one of the buttons")
-        console.log(error)
-    }
-
-}
-//Rest countries goes down often so I need to inform the user
-function errorOut(data) {
-    let message = ""
-    for (const datum of data) {
-        if (datum[1]["status"] === "rejected") {
-            message += `- ${datum[0]} API is not responding and timed out\n`
-        } else if (datum[1]["value"]["status"]["code"] === 500) {
-            message += `- ${datum[0]} API is not responding \n`
-        }
-    }
-    if (message !== "") {
-        alert("One or more of the API's is not functioning as normal, please try refreshing or trying again later - the API's not working are: \n" + message)
-    }
-}
 
 //------
 //Data loaders
@@ -612,7 +608,7 @@ async function getData() {
             }),
             //Wikipedia - geonames
             $.ajax({
-                url: "libs/php/getWiki.php",
+                url: "libs/php/getWikipedia.php",
                 type: "GET",
                 dataType: "json",
                 timeout: timeoutTime,
@@ -673,17 +669,9 @@ async function getData() {
 
 
         ])
-        errorOut([["Rest countries", results[0]], ["Audioscrobbler", results[1]], ["Open Weather", results[2]], ["GeoNames Wikipedia Endpoint", results[3]], ["GeoName Search Endpoint - Hospital", results[4]], ["GeoName Search Endpoint - Airport", results[5]], ["GeoName Search Endpoint - Museum", results[6]], ["GeoName Search Endpoint - Capital", results[7]]])
-
-        infoData = results[0].status === "fulfilled" ? results[0].value : null
-        musicData = results[1].status === "fulfilled" ? results[1].value : null
-        weatherData = results[2].status === "fulfilled" ? results[2].value : null
-        wikiData = results[3].status === "fulfilled" ? results[3].value : null
-        hospitalData = results[4].status === "fulfilled" ? results[4].value : null
-        airportData = results[5].status === "fulfilled" ? results[5].value : null
-        museumData = results[6].status === "fulfilled" ? results[6].value : null
-        capitalData = results[7].status === "fulfilled" ? results[7].value : null
-
+        errorOut([["Rest countries", results[0]], ["Audioscrobbler", results[1]], ["Open Weather", results[2]], ["Wikipedia", results[3]], ["GeoName Search Endpoint - Hospital", results[4]], ["GeoName Search Endpoint - Airport", results[5]], ["GeoName Search Endpoint - Museum", results[6]], ["GeoName Search Endpoint - Capital", results[7]]]);
+        //Gets data from results if they passed
+        [infoData, musicData, weatherData, wikiData, hospitalData, airportData, museumData, capitalData] = results.map(result => result.status === "fulfilled" ? result.value : null);
         //Get currency from info
         if (infoData?.["data"]?.["currencies"]) {
             currency = Object.keys(infoData["data"]["currencies"])[0]

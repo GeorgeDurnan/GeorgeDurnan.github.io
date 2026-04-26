@@ -7,6 +7,7 @@
     <title>Gazetteer</title>
     <link rel="stylesheet" href="./libs/dependencies/leaflet/leaflet.css" />
     <link rel="stylesheet" href="./libs/css/index.css">
+    <!-- Dependencies CSS-->
     <link rel="stylesheet" href="./libs/dependencies/leaflet-easybutton/src/easy-button.css">
     <link rel="stylesheet" href="./libs/dependencies/leaflet.markercluster/dist/MarkerCluster.css">
     <link rel="stylesheet" href="./libs/dependencies/leaflet.markercluster/dist/MarkerCluster.Default.css">
@@ -18,11 +19,12 @@
 
 <body>
     <!-- Buttons -->
+    <!--- Music - Last FM-->
     <div class="modal fade" data-bs-backdrop="false" id="musicModal" tabindex="-1" aria-labelledby="musicModalLabel"
         aria-hidden="false">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header bg-info bg-gradient text-white">
+                <div class="modal-header">
                     <h4 class="modal-title" id="musicModalLabel">
                         Last FM's Top ten in <span id="music-title"></span>
                     </h4>
@@ -30,7 +32,18 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body short-modal">
-                    <ol id="music-list"></ol>
+                    <table id="music-list">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Song</th>
+                                <th>Artist</th>
+                            </tr>
+                        </thead>
+                        <tbody id="music-list-body">
+
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-info btn-sm" data-bs-dismiss="modal">
@@ -40,6 +53,7 @@
             </div>
         </div>
     </div>
+    <!--- Country information - Rest countries-->
     <div class="modal fade" data-bs-backdrop="false" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel"
         aria-hidden="false">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -123,7 +137,7 @@
             </div>
         </div>
     </div>
-    <!-- Currency modal-->
+    <!-- Currency - OpenCurrencyExchange-->
     <div class="modal fade" data-bs-backdrop="false" id="currencyModal" tabindex="-1"
         aria-labelledby="currencyModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -180,7 +194,7 @@
             </div>
         </div>
     </div>
-    <!-- Weather -->
+    <!-- Weather - OpenWeather -->
     <div class="modal fade" data-bs-backdrop="false" id="weatherModal" tabindex="-1" aria-labelledby="weatherModalLabel"
         aria-hidden="false">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -192,37 +206,27 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <div class="modal-body short-modal">
+                <div class="modal-body short-modal" id="weather-modal">
                     <p id="weather-message">No data found</p>
+                    <div id="weather-icon"></div>
                     <table id="weather-table">
+
                         <tr>
-                            <td>
-                                <h6>Weather</h6>
-                            </td>
                             <td>
                                 <h6 id="weather-name"></h6>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h6>Description</h6>
-                            </td>
-                            <td>
                                 <h6 id="weather-desc"></h6>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h6>Temperature</h6>
-                            </td>
-                            <td>
                                 <h6 id="weather-temp"></h6>
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <h6>Wind speed</h6>
-                            </td>
                             <td>
                                 <h6 id="weather-speed"></h6>
                             </td>
@@ -237,7 +241,7 @@
             </div>
         </div>
     </div>
-    <!-- location -->
+    <!-- Location - OpenCage-->
     <div class="modal fade" data-bs-backdrop="false" id="locationModal" tabindex="-1"
         aria-labelledby="locationModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -296,6 +300,7 @@
             </div>
         </div>
     </div>
+    <!--- Wikipedia - GeoNames-->
     <div class="modal fade" data-bs-backdrop="false" id="wikiModal" tabindex="-1" aria-labelledby="wikiModalLabel"
         aria-hidden="false">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -308,7 +313,8 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body short-modal">
-                    <ol id="wiki-list"></ol>
+                    <p id="wiki-message">No data found</p>
+                    <div id="wiki-list"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-info btn-sm" data-bs-dismiss="modal">
@@ -318,7 +324,9 @@
             </div>
         </div>
     </div>
+    <!--- Flag - Rest Countries-->
     <div id="flag"></div>
+    <!-- Country Selector-->
     <form class="ms-auto align-items-end">
         <select name="countries" id="countries" class="form-select" aria-label="Choose country"></select>
     </form>
@@ -327,16 +335,20 @@
 
 
     <!---------- Scripts ------------>
+
     <!--- Data imports -->
     <script src="./libs/data/countryBorders.geo.js"></script>
     <script src="./libs/data/selectData.js"></script>
     <script src="./libs/data/convert.js"></script>
 
+    <!-- Dependencies imports-->
     <script src="./libs/dependencies/leaflet/leaflet.js"></script>
     <script src="libs/js/jquery.js"></script>
     <script src="./libs/dependencies/leaflet-easybutton/src/easy-button.js"></script>
     <script src="./libs/dependencies/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="./libs/dependencies/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+    <!-- Script-->
     <script src="libs/js/script.js"></script>
 </body>
 

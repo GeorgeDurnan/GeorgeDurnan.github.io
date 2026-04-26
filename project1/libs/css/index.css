@@ -13,13 +13,14 @@ table {
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: rgb(0, 128, 0, 0.5);
+  background-color: transparent;
   font-size: 1rem;
-  border: solid;
 }
 
-table td {
-  border: solid;
+#info-table td,
+#currency-table td,
+#location-table td {
+  border: solid black;
 }
 
 td {
@@ -34,11 +35,11 @@ td {
   columns: 2;
 }
 
+/* Flag */
 #flag {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  /*doesnt appear with important*/
   width: 200px !important;
   z-index: 999;
   width: 10px;
@@ -52,43 +53,168 @@ td {
   display: block;
 }
 
+/*Country selector*/
+
 .form-select {
   position: absolute;
-  /*Goes full width without important*/
-  width: 200px !important;
+  width: 50vw !important;
   z-index: 999;
-  top: 10px;
+  top: 0.75vh;
   left: 50%;
   transform: translate(-50%);
+  text-align: center;
+  height: 7.5vh;
+  font-size: 2rem !important;
+
+
 }
 
-/* Make all buttons same size*/
+/* Ensures drop down works  */
+.leaflet-control-layers {
+  width: auto !important;
+  height: auto !important;
+}
+
+.leaflet-control-layers-expanded {
+  padding: 1vh 1.5vh !important;
+  min-width: max-content !important;
+}
+
+/* Map/marker control size and centers image for laptop*/
+.leaflet-control-layers-toggle {
+  width: 4vh !important;
+  height: 4vh !important;
+  background-size: 60% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Make all buttons same size for laptop*/
 .leaflet-bar .easy-button-button,
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
-  width: 36px !important;
-  height: 36px !important;
-  line-height: 36px !important;
+  width: 4vh !important;
+  height: 4vh !important;
+  line-height: 4vh !important;
 }
 
-/* For touch screens e.g. phones */
+/* For mobile */
 .leaflet-touch .leaflet-bar .easy-button-button,
 .leaflet-touch .leaflet-control-zoom-in,
 .leaflet-touch .leaflet-control-zoom-out {
-  width: 44px !important;
-  height: 44px !important;
-  line-height: 44px !important;
-  
+  width: 8vh !important;
+  height: 8vh !important;
+  line-height: 8vh !important;
+
 }
+
+/*For mobile*/
+.leaflet-touch .leaflet-control-layers-toggle {
+  width: 8vh !important;
+  height: 8vh !important;
+}
+
+
 
 /*Mobile phone adjustment*/
 @media screen and (max-width: 580px) {
   #flag {
-    top: 0.7rem;
-    right: 0.7rem;
+    top: 2.5vw;
+    right: 2.5vw;
     /*doesnt appear with important*/
-    width: 75px !important;
+    width: 20vw !important;
 
- }
+  }
 
+  .form-select {
+    top: 2.5vw;
+    font-size: 1rem !important;
+  }
+
+}
+
+/* Modals */
+
+.modal-body,
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.modal-header {
+  background-color: rgb(149, 212, 233);
+}
+
+/* weather modal */
+#weather-icon {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#weather-modal {
+  background-size: cover;
+  background-position: center;
+}
+
+#weather-icon img {
+  opacity: 1;
+  padding: 0;
+}
+
+#weather-table tr td h6 {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 5px;
+  opacity: 1;
+  font-size: 1.5rem;
+  background-color: white;
+}
+
+/* Music Modal */
+#music-list tbody tr {
+  border-top: solid black;
+}
+
+/* makes the music diamond*/
+.music-no {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightpink;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  transform: rotate(45deg);
+  margin: 10px auto;
+  font-weight: bold;
+}
+
+/* Unrotates the number*/
+.music-no h6 {
+  transform: rotate(-45deg);
+  display: inline-block;
+  margin: 0;
+}
+
+/* Wiki modal */
+.wiki-image {
+  width: auto;
+  height: 200px;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.wiki-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.wiki-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
