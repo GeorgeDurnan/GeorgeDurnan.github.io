@@ -461,7 +461,7 @@ async function initaliseButtons() {
                 let count = 0
                 //Incase wikipedia has less results
                 for (let index = 0; index < 5 && index < data.length; index++) {
-                    const image = data[index]?.["thumbnail"]?.["source"] ?? "./libs/images/Wikipedia-logo.png"
+                    const image = data[index]?.["thumbnail"]?.["source"] ?? "./libs/images/wikipedia-logo.png"
                     const imageDesc = data[index]?.["thumbnail"]?.["pageimage"] ?? "Wikipedia logo"
                     $("#wiki-list").append(`<div class="wiki-container"> <div class="wiki-img-container"><img class="wiki-image" src="${image}" alt="${imageDesc}"></img></div><a href="${data?.[index]?.["fullurl"] ?? "https://www.wikipedia.org/"}" target="_blank">${data?.[index]?.["title"] ?? "No title"}</a><h6 id="wiki-list-title">${data?.[index]?.["extract"] ?? "No description"}</h6></div>`)
 
