@@ -38,12 +38,12 @@ td {
 /* Flag */
 #flag {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  width: 200px !important;
   z-index: 999;
-  width: 10px;
-  max-height: 5.75rem;
+  max-height: 4rem;
+  top: 2.5%;
+  right: 2.5%;
+  /*doesnt appear with important*/
+  width: 15% !important;
 }
 
 
@@ -57,16 +57,16 @@ td {
 
 .form-select {
   position: absolute;
-  width: 50vw !important;
+  width: 45% !important;
   z-index: 999;
-  top: 0.75rem;
+  top: 2.5%;
   left: 50%;
   transform: translate(-50%);
   text-align: center;
   justify-content: center;
   height: auto !important;
   font-size: 1.5rem !important;
-  padding: 0.5rem !important;
+  padding: 2vh !important;
 
 
 }
@@ -116,37 +116,21 @@ td {
   height: 6vh !important;
 }
 
-
-
-/*Mobile phone adjustment*/
-@media screen and (max-width: 580px) {
-  #flag {
-    top: 2.5vw;
-    right: 2.5vw;
-    /*doesnt appear with important*/
-    width: 20vw !important;
-
-  }
-
-  .form-select {
-    top: 2.5vw;
-    font-size: 1rem !important;
-  }
-
-}
-
 /* Modals */
 
 
 .modal-content {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-}
-.modal-body{
   background-color: transparent !important;
+  border: none !important;
+}
+
+.modal-body,
+.modal-footer {
+  background-color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .modal-header {
-  background-color: rgba(72, 142, 192, 0.75) !important;
+  background-color: rgba(72, 142, 192, 0.9) !important;
 }
 
 /* weather modal */
@@ -220,4 +204,35 @@ td {
   justify-content: center;
   align-items: center;
   width: 100%;
+}
+
+/*Mobile phone adjustment*/
+@media screen and (max-width: 580px) {
+  #flag {
+    /*doesnt appear with important*/
+    width: 20vw !important;
+
+  }
+
+  .form-select {
+    font-size: 1rem !important;
+  }
+
+}
+
+/*Tablet adjustment*/
+@media screen and (min-device-width: 581px) and (max-width: 900px) {
+  #flag {
+    top: 2.5vw;
+    right: 2.5vw;
+    /*doesnt appear with important*/
+    width: 20vw !important;
+
+  }
+
+  .form-select {
+    top: 2.5vw;
+    font-size: 1.75rem !important;
+  }
+
 }

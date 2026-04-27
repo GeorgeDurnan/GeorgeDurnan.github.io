@@ -352,7 +352,7 @@ async function initaliseButtons() {
                 $("#currency-message").hide()
                 const data = currencyData["data"]
                 const [{ symbol, name }] = Object.values(infoData?.["data"]?.["currencies"] ?? { "backup": { "symbol": "No symbol data", "name": "No name data" } })
-                $("#currency-name").text(name)
+                $("#currency-name").text(capitalizeFirstLetter(name))
                 $("#currency-symbol").text(symbol)
                 $("#currency-code").text(currency ?? "No currency code")
                 $("#currency-rate").text(data?.[currency]?.toFixed(2) ?? "No currency rate")
