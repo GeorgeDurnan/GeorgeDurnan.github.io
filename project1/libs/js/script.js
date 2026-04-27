@@ -251,6 +251,7 @@ const initializeChoices = () => {
 //-------
 //Easy buttons
 //-------
+
 async function initaliseButtons() {
     //If it is already loading it does not initalise buttons
     if (isLoading) {
@@ -283,8 +284,8 @@ async function initaliseButtons() {
                     const row = $("<tr>")
                     const diamondNo = $("<div class='music-no'>").html("<h6>" + (index + 1) + "</h6>")
                     row.append($("<td>").append(diamondNo))
-                    row.append($("<td>").text(song["name"]))
-                    row.append($("<td>").text(song["artist"]["name"]))
+                    row.append($("<td>").text(song?.["name"] ?? "No title data"))
+                    row.append($("<td>").text(song?.["artist"]?.["name"] ?? "No artist data"))
                     $("#music-list-body").append(row);
                 }
             }
@@ -309,23 +310,25 @@ async function initaliseButtons() {
                 $("#info-table").show()
                 $("#info-message").hide()
                 const data = infoData["data"]
-                const [{ symbol, name }] = Object.values(data["currencies"])
-                $("#info-capital").text(data["capital"])
-                $("#info-drive").text(capitalizeFirstLetter(data["car"]["side"]))
-                $("#info-continent").text(data["continents"][0])
-                $("#info-population").text(data["population"])
+                const [{ symbol, name }] = Object.values(data?.["currencies"] ?? { "backup": { "symbol": "No symbol data", "name": "No name data" } })
+                $("#info-capital").text(data?.["capital"] ?? "No capital data")
+                $("#info-drive").text(capitalizeFirstLetter(data?.["car"]?.["side"] ?? "No driving data"))
+                $("#info-continent").text(data?.["continents"]?.[0] ?? "No continent data")
+                $("#info-population").text(data?.["population"] ?? "No population data")
                 $("#info-currency").text(capitalizeFirstLetter(name))
                 $("#info-symbol").text(symbol)
-                for (let index = 0; index < data["borders"].length; index++) {
-                    if (index == 0) {
-                        $("#info-list-title").text(`Neighbours of ${country}`)
-                    }
-                    if (convert[data["borders"][index]]?.["name"]) {
-                        $("#info-list-body").append($("<li>").text(convert[data["borders"][index]]["name"]))
-                    } else {
-                        console.log("Unrecognised neighbour")
-                    }
+                $("#info-list-title").text(`Neighbours of ${country}`)
+                if (data?.["borders"]) {
+                    for (let index = 0; index < data["borders"].length; index++) {
+                        if (convert[data["borders"][index]]?.["name"]) {
+                            $("#info-list-body").append($("<li>").text(convert[data?.["borders"][index]]?.["name"] ?? "No name"))
+                        } else {
+                            console.log("Unrecognised neighbour")
+                        }
 
+                    }
+                } else {
+                    $("#info-list-body").text("None")
                 }
             }
             $("#info-title").text(country)
@@ -347,12 +350,12 @@ async function initaliseButtons() {
             } else {
                 $("#currency-table").show()
                 $("#currency-message").hide()
-                const [{ symbol, name }] = Object.values(infoData["data"]["currencies"])
                 const data = currencyData["data"]
+                const [{ symbol, name }] = Object.values(infoData?.["data"]?.["currencies"] ?? { "backup": { "symbol": "No symbol data", "name": "No name data" } })
                 $("#currency-name").text(name)
                 $("#currency-symbol").text(symbol)
-                $("#currency-code").text(currency)
-                $("#currency-rate").text(data[currency].toFixed(2))
+                $("#currency-code").text(currency ?? "No currency code")
+                $("#currency-rate").text(data?.[currency]?.toFixed(2) ?? "No currency rate")
             }
             $("#currency-title").text(country)
             // Show the currency modal popup window
@@ -386,12 +389,12 @@ async function initaliseButtons() {
                 } else {
                     $('#weather-modal').css('background-image', `url("./libs/images/${(data["weather"][0]["main"]).toLowerCase()}.gif")`);
                 }
-                $("#weather-name").text(data["weather"][0]["main"])
-                $("#weather-desc").text(capitalizeFirstLetter(data["weather"][0]["description"]))
+                $("#weather-name").text(data?.["weather"]?.[0]?.["main"] ?? "No weather data")
+                $("#weather-desc").text(capitalizeFirstLetter(data?.["weather"]?.[0]?.["description"] ?? "No description data"))
                 //Temperature is in kelvin
-                $("#weather-temp").text((data["main"]["temp"] - 273.15).toFixed(0) + "°C")
-                $("#weather-speed").text(`${data["wind"]["speed"]} mph wind`)
-                $("#weather-title").text(data["name"])
+                $("#weather-temp").text(((data?.["main"]?.["temp"] != null ? ((data["main"]["temp"] - 273.15).toFixed(0) + "°C") : "No temperature data")))
+                $("#weather-speed").text(data?.["wind"]?.["speed"] != null ? `${data["wind"]["speed"]} mph wind` : "No wind speed data")
+                $("#weather-title").text(data?.["name"] ?? "No weather data")
             }
             // Show the weather modal popup window
             new bootstrap.Modal(document.getElementById('weatherModal')).show()
@@ -430,7 +433,7 @@ async function initaliseButtons() {
                     $("#location-county").text(capitalizeFirstLetter(data["components"]["state_district"]))
                     $("#location-county-title").text("State District")
                 } else {
-                    $("#location-county").text(capitalizeFirstLetter(data["components"]["_category"]))
+                    $("#location-county").text(capitalizeFirstLetter(data?.["components"]?.["_category"] ?? "No category"))
                     $("#location-county-title").text("Category")
                 }
                 $("#location-state").text(data["components"]?.["state"] || "No data")
@@ -460,7 +463,7 @@ async function initaliseButtons() {
                 for (let index = 0; index < 5 && index < data.length; index++) {
                     const image = data[index]?.["thumbnail"]?.["source"] ?? "./libs/images/Wikipedia-logo.png"
                     const imageDesc = data[index]?.["thumbnail"]?.["pageimage"] ?? "Wikipedia logo"
-                    $("#wiki-list").append(`<div class="wiki-container"> <div class="wiki-img-container"><img class="wiki-image" src="${image}" alt="${imageDesc}"></img></div><a href="${data[index]["fullurl"]}" target="_blank">${data[index]["title"]}</a><h6 id="wiki-list-title">${data[index]["extract"]}</h6></div>`)
+                    $("#wiki-list").append(`<div class="wiki-container"> <div class="wiki-img-container"><img class="wiki-image" src="${image}" alt="${imageDesc}"></img></div><a href="${data?.[index]?.["fullurl"] ?? "https://www.wikipedia.org/"}" target="_blank">${data?.[index]?.["title"] ?? "No title"}</a><h6 id="wiki-list-title">${data?.[index]?.["extract"] ?? "No description"}</h6></div>`)
 
                 }
             }
@@ -485,11 +488,44 @@ function initializeListeners() {
             country = $(this).find("option:selected").text()
             chosenIndex = this.selectedIndex
             code = $(this).val()
-            createBorder(code)
-            //Have to use countryCenter due to issues with c shaped countries causing issues 
-            lat = countryCenter[code]["lat"]
-            long = countryCenter[code]["lng"]
-            initaliseButtons()
+            //Gets center of country which will be used if ajax and countryCenter data fails
+            const roughCenter = L.geoJSON(borderData[code]).getBounds().getCenter()
+            //Finds capital of selected country
+            $.ajax({
+                url: "libs/php/getFeature.php",
+                type: "GET",
+                dataType: "json",
+                timeout: timeoutTime,
+                data: {
+                    code: code,
+                    feature: "PPLC",
+                    limit: 1
+                },
+                success: function (result) {
+                    //If succeeds pin is based on capital from data
+                    if (result.status.code == 200) {
+                        const data = result["data"]
+                        lat = data[0]["lat"]
+                        long = data[0]["lng"]
+                    } else {
+                        //If it fails it reverts to base 
+                        console.log("No capital found")
+                        //If capital not found reverts to center of country
+                        lat = countryCenter?.[code]?.["lat"] ?? roughCenter.lat
+                        long = countryCenter?.[code]?.["lng"] ?? roughCenter.lng
+                    }
+                    createBorder(code)
+                    initaliseButtons()
+                },
+                error: function (error) {
+                    console.log(error)
+                    lat = countryCenter?.[code]?.["lat"] ?? roughCenter.lat
+                    long = countryCenter?.[code]?.["lng"] ?? roughCenter.lng
+                    createBorder(code)
+                    initaliseButtons()
+                }
+            })
+
         } else {
             document.getElementById("countries").selectedIndex = chosenIndex
             console.log("Switched countries too quickly")
@@ -541,6 +577,9 @@ function initializeListeners() {
                         console.log("Non country clicked")
                     }
                 },
+                error: function (error) {
+                    console.log(error)
+                }
             })
         } else {
             console.log("Moved too quickly")
@@ -740,7 +779,7 @@ function addMarkers() {
 function addMarkersToMap(data, cluster, icon) {
     //If data doesn't work the layer is still cleared
     cluster.clearLayers()
-    if(data == null){
+    if (data == null) {
         return
     }
     data = data["data"]
@@ -752,9 +791,9 @@ function addMarkersToMap(data, cluster, icon) {
         // Longitude
         const markerLong = data[i].lng
         // name                   
-        const name = data[i].toponymName
+        const name = data?.[i]?.toponymName ?? "No name data"
         // Feature                   
-        const feature = data[i].fclName
+        const feature = data?.[i]?.fclName ?? "No feature data"
         const marker = L.divIcon({
             html: icon,
             //prevents default

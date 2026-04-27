@@ -5,13 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gazetteer</title>
-    <link rel="stylesheet" href="./libs/dependencies/leaflet/leaflet.css" />
-    <link rel="stylesheet" href="./libs/css/index.css">
     <!-- Dependencies CSS-->
     <link rel="stylesheet" href="./libs/dependencies/leaflet-easybutton/src/easy-button.css">
     <link rel="stylesheet" href="./libs/dependencies/leaflet.markercluster/dist/MarkerCluster.css">
     <link rel="stylesheet" href="./libs/dependencies/leaflet.markercluster/dist/MarkerCluster.Default.css">
     <link rel="stylesheet" href="./libs/dependencies/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./libs/dependencies/leaflet/leaflet.css" />
+    <!-- Main stylyesheet -->
+    <link rel="stylesheet" href="./libs/css/index.css">
 
 
 
@@ -20,9 +21,8 @@
 <body>
     <!-- Buttons -->
     <!--- Music - Last FM-->
-    <div class="modal fade" data-bs-backdrop="false" id="musicModal" tabindex="-1" aria-labelledby="musicModalLabel"
-        aria-hidden="false">
-        <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal fade" data-bs-backdrop="false" id="musicModal" tabindex="-1" aria-labelledby="musicModalLabel">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="musicModalLabel">
@@ -55,11 +55,10 @@
         </div>
     </div>
     <!--- Country information - Rest countries-->
-    <div class="modal fade" data-bs-backdrop="false" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel"
-        aria-hidden="false">
-        <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal fade" data-bs-backdrop="false" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header bg-info bg-gradient text-white">
+                <div class="modal-header text-white">
                     <h4 class="modal-title" id="infoModalLabel">
                         Interesting information about <span id="info-title"></span>
                     </h4>
@@ -117,8 +116,7 @@
                                 <h6 id="info-symbol"></h6>
                             </td>
                         </tr>
-
-                        <tr>
+                        <tr id="info-list-row">
                             <td id="info-list" colspan="2">
                                 <h6 id="info-list-title"></h6>
                             </td>
@@ -140,10 +138,10 @@
     </div>
     <!-- Currency - OpenCurrencyExchange-->
     <div class="modal fade" data-bs-backdrop="false" id="currencyModal" tabindex="-1"
-        aria-labelledby="currencyModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-scrollable">
+        aria-labelledby="currencyModalLabel">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header bg-info bg-gradient text-white">
+                <div class="modal-header text-white">
                     <h4 class="modal-title" id="currencyModalLabel">
                         Currency of <span id="currency-title"></span>
                     </h4>
@@ -196,11 +194,11 @@
         </div>
     </div>
     <!-- Weather - OpenWeather -->
-    <div class="modal fade" data-bs-backdrop="false" id="weatherModal" tabindex="-1" aria-labelledby="weatherModalLabel"
-        aria-hidden="false">
-        <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal fade" data-bs-backdrop="false" id="weatherModal" tabindex="-1"
+        aria-labelledby="weatherModalLabel">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header bg-info bg-gradient text-white">
+                <div class="modal-header text-white">
                     <h4 class="modal-title" id="weatherModalLabel">
                         Weather in <span id="weather-title"></span>
                     </h4>
@@ -244,10 +242,10 @@
     </div>
     <!-- Location - OpenCage-->
     <div class="modal fade" data-bs-backdrop="false" id="locationModal" tabindex="-1"
-        aria-labelledby="locationModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-scrollable">
+        aria-labelledby="locationModalLabel">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header bg-info bg-gradient text-white">
+                <div class="modal-header text-white">
                     <h4 class="modal-title" id="locationModalLabel">
                         Pin location <span id="location-title"></span>
                     </h4>
@@ -302,11 +300,10 @@
         </div>
     </div>
     <!--- Wikipedia - GeoNames-->
-    <div class="modal fade" data-bs-backdrop="false" id="wikiModal" tabindex="-1" aria-labelledby="wikiModalLabel"
-        aria-hidden="false">
-        <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal fade" data-bs-backdrop="false" id="wikiModal" tabindex="-1" aria-labelledby="wikiModalLabel">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header bg-info bg-gradient text-white">
+                <div class="modal-header text-white">
                     <h4 class="modal-title" id="wikiModalLabel">
                         Wikipedia entries for <span id="wiki-title"></span>
                     </h4>
